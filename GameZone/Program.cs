@@ -1,6 +1,3 @@
-using GameZone.Data;
-using Microsoft.EntityFrameworkCore;
-
 var builder = WebApplication.CreateBuilder(args);
 
 //connection to server 
@@ -10,6 +7,13 @@ var connectionString = builder.Configuration.GetConnectionString("DefualtConnect
 
 builder.Services.AddDbContext<ApplicationDbContext>(options => 
 options.UseSqlServer(connectionString));
+
+
+
+// add socped for inter face 
+builder.Services.AddScoped<ICategoriesService, CategoriesService>();
+builder.Services.AddScoped<IDevicesService, DevicesService>();
+builder.Services.AddScoped<IGamesService, GamesService>();
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();

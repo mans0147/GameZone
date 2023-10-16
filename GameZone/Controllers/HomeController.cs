@@ -1,26 +1,19 @@
-﻿using GameZone.Models;
-using Microsoft.AspNetCore.Mvc;
-using System.Diagnostics;
-
+﻿
 namespace GameZone.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private readonly IGamesService _gamesServices;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(IGamesService gamesSrevices)
         {
-            _logger = logger;
+            _gamesServices = gamesSrevices;
         }
 
         public IActionResult Index()
         {
-            return View();
-        }
-
-        public IActionResult Privacy()
-        {
-            return View();
+            var games = _gamesServices.GetAll();
+            return View(games);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
