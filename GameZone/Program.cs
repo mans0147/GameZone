@@ -1,3 +1,4 @@
+
 var builder = WebApplication.CreateBuilder(args);
 
 //connection to server 
@@ -8,7 +9,15 @@ var connectionString = builder.Configuration.GetConnectionString("DefualtConnect
 builder.Services.AddDbContext<ApplicationDbContext>(options => 
 options.UseSqlServer(connectionString));
 
+builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = false)
+    .AddEntityFrameworkStores<ApplicationDbContext>()
+    .AddDefaultUI()
+    .AddDefaultTokenProviders();
 
+//builder.Services.AddIdentity<IdentityUser, IdentityRole>()
+//       //.AddRoleStore<ApplicationDbContext>();
+//       .AddEntityFrameworkStores<ApplicationDbContext>()
+//        .AddDefaultTokenProviders();
 
 // add socped for inter face 
 builder.Services.AddScoped<ICategoriesService, CategoriesService>();
@@ -38,5 +47,7 @@ app.UseAuthorization();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
+
+app.MapRazorPages();
 
 app.Run();

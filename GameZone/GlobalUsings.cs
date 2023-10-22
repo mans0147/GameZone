@@ -9,7 +9,7 @@ global using GameZone.Models;
 global using GameZone.Setting;
 global using System.Diagnostics;
 global using GameZone.Attributes;
-
+global using Microsoft.AspNetCore.Identity;
 
 
 
