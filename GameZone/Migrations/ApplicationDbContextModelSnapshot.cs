@@ -74,10 +74,6 @@ namespace GameZone.Migrations
                     b.Property<bool>("PhoneNumberConfirmed")
                         .HasColumnType("bit");
 
-                    b.Property<byte[]>("ProfilePicture")
-                        .IsRequired()
-                        .HasColumnType("varbinary(max)");
-
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("nvarchar(max)");
 
@@ -116,7 +112,7 @@ namespace GameZone.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Categories");
+                    b.ToTable("Categories", (string)null);
 
                     b.HasData(
                         new
@@ -171,7 +167,7 @@ namespace GameZone.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Devices");
+                    b.ToTable("Devices", (string)null);
 
                     b.HasData(
                         new
@@ -230,7 +226,7 @@ namespace GameZone.Migrations
 
                     b.HasIndex("CategoryId");
 
-                    b.ToTable("Games");
+                    b.ToTable("Games", (string)null);
                 });
 
             modelBuilder.Entity("GameZone.Models.GameDevice", b =>
@@ -245,7 +241,7 @@ namespace GameZone.Migrations
 
                     b.HasIndex("DeviceId");
 
-                    b.ToTable("GameDevices");
+                    b.ToTable("GameDevices", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>

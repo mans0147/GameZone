@@ -1,5 +1,5 @@
-
 var builder = WebApplication.CreateBuilder(args);
+
 
 //connection to server 
 
@@ -14,20 +14,28 @@ builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options => options.S
     .AddDefaultUI()
     .AddDefaultTokenProviders();
 
-//builder.Services.AddIdentity<IdentityUser, IdentityRole>()
-//       //.AddRoleStore<ApplicationDbContext>();
-//       .AddEntityFrameworkStores<ApplicationDbContext>()
-//        .AddDefaultTokenProviders();
 
-// add socped for inter face 
+builder.Services.AddControllersWithViews();
+
+// Add services and configure your application
+builder.Services.AddLogging(configure => configure.AddConsole());
+builder.Services.AddDbContext<ApplicationDbContext>();
+
 builder.Services.AddScoped<ICategoriesService, CategoriesService>();
 builder.Services.AddScoped<IDevicesService, DevicesService>();
 builder.Services.AddScoped<IGamesService, GamesService>();
 
-// Add services to the container.
-builder.Services.AddControllersWithViews();
-
+// scoped seeds
 var app = builder.Build();
+using (var scope = app.Services.CreateScope())
+{
+    var userManager = scope.ServiceProvider.GetService<UserManager<ApplicationUser>>();
+    var roleManager = scope.ServiceProvider.GetService<RoleManager<IdentityRole>>();
+    await DefaultRoles.SeedAsync(roleManager);
+    await DefaultUsers.SeedUserAsync(userManager);
+    await DefaultUsers.SeedSuperAdminAsync(userManager, roleManager);
+}
+
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())

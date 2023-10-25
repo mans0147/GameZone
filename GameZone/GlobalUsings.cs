@@ -10,6 +10,12 @@ global using GameZone.Setting;
 global using System.Diagnostics;
 global using GameZone.Attributes;
 global using Microsoft.AspNetCore.Identity;
-
-
+global using GameZone.Constans;
+global using Microsoft.AspNetCore.Hosting;
+global using Microsoft.Extensions.DependencyInjection;
+global using Microsoft.Extensions.Hosting;
+global using Microsoft.Extensions.Logging;
+global using GameZone.Seeds;
+global using Microsoft.AspNetCore.Authorization;
+global using Microsoft.AspNetCore.Identity.UI.Services;
 

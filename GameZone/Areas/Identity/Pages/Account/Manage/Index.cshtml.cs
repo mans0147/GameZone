@@ -56,6 +56,17 @@ namespace GameZone.Areas.Identity.Pages.Account.Manage
             ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
             ///     directly from your code. This API may change or be removed in future releases.
             /// </summary>
+            /// 
+
+            [Required]
+            [Display(Name = "First Name")]
+            public string FirstName { get; set; }
+
+
+            [Required]
+            [Display(Name = "Last Name")]
+            public string LastName { get; set; }
+
             [Phone]
             [Display(Name = "Phone number")]
             public string PhoneNumber { get; set; }
@@ -70,6 +81,8 @@ namespace GameZone.Areas.Identity.Pages.Account.Manage
 
             Input = new InputModel
             {
+                FirstName = user.FirstName,
+                LastName = user.LastName,
                 PhoneNumber = phoneNumber
             };
         }
@@ -101,6 +114,17 @@ namespace GameZone.Areas.Identity.Pages.Account.Manage
             }
 
             var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
+            var firstName = user.FirstName;
+            var lastName = user.LastName;
+
+            if (Input.FirstName != firstName || Input.LastName != lastName)
+            {
+                user.FirstName = Input.FirstName;
+                user.LastName = Input.LastName;
+                await _userManager.UpdateAsync(user); 
+            }
+
+
             if (Input.PhoneNumber != phoneNumber)
             {
                 var setPhoneResult = await _userManager.SetPhoneNumberAsync(user, Input.PhoneNumber);
@@ -110,7 +134,6 @@ namespace GameZone.Areas.Identity.Pages.Account.Manage
                     return RedirectToPage();
                 }
             }
-
             await _signInManager.RefreshSignInAsync(user);
             StatusMessage = "Your profile has been updated";
             return RedirectToPage();

@@ -25,9 +25,21 @@
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-controller="Games" asp-action="Index">Games</a>
-                        </li>
+                        @if (User.IsInRole("User"))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-controller="Games" asp-action="Index">Games</a>
+                            </li>
+                        }
+                        @if (User.IsInRole("SuperAdmin"))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-controller="Roles" asp-action="Index">Manage Roles</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-controller="Users" asp-action="Index">Manage Users</a>
+                            </li>
+                        }
                     </ul>
                     <partial name="_LoginPartial" />
                 </div>
@@ -42,13 +54,14 @@
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2023 - GameZone - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            &copy; 2023 - GameZone
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/lib/select2/js/select2.min.js"></script>
     <script src="~/lib/sweetalert2/sweetalert2.min.js"></script>
+    <script src="~/lib/bootbox.js/bootbox.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>

@@ -1,5 +1,8 @@
-﻿namespace GameZone.Controllers
+﻿using Microsoft.AspNetCore.Authorization;
+
+namespace GameZone.Controllers
 {
+    [Authorize(Roles = "SuperAdmin,Admin")]
     public class GamesController : Controller
     {
         private readonly IDevicesService _devicesService;

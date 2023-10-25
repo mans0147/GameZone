@@ -8,6 +8,5 @@
         [MaxLength(100)]
         public string LastName { get; set; } = string.Empty;
 
-        public byte[] ProfilePicture { get; set; } 
     }
 }
